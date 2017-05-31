@@ -12,25 +12,18 @@ export default {
 
     Vue.mixin({
       created() {
-        const nameArray = this.$options.name.split(/(?=[A-Z])/);
-        const c = {
-          type: nameArray.pop().toLowerCase(),
-          name: nameArray.join('-').toLowerCase(),
-        };
+        const block = this.$options.block || this.$options.name.split(/(?=[A-Z])/);
 
-        let block = '';
+        if (typeof block === 'string') {
+          /* eslint no-nested-ternary: 0 */
+          const c = { type: block.pop().toLowerCase(), name: block.join('-').toLowerCase() };
+          const name = c.type === 'container' ? `b-${c.name}` : c.type === 'component' ? `c-${c.name}` : c.type === 'page' ? `p-${c.name}` : `u-${c.name}`;
 
-        switch (c.type) {
-          case 'container': block = `b-${c.name}`; break;
-          case 'component': block = `c-${c.name}`; break;
-          case 'page': block = `p-${c.name}`; break;
-          default: block = `u-${c.name}`;
+          if (typeof name === 'string') {
+            const generator = bemCn(name);
+            this.bem = (...args) => generator(...args);
+          }
         }
-
-        if (typeof block !== 'string') return;
-
-        const generator = bemCn(block);
-        this.bem = (...args) => generator(...args);
       },
     });
   },
