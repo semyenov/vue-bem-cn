@@ -12,7 +12,20 @@ export default {
 
     Vue.mixin({
       created() {
-        const block = this.$options.block || this.$options.name;
+        const nameArray = this.$options.block.split(/(?=[A-Z])/) || this.$options.name.split(/(?=[A-Z])/);
+        const c = {
+          type: nameArray.pop().toLowerCase(),
+          name: nameArray.join('-').toLowerCase(),
+        };
+
+        let block = '';
+
+        switch (c.type) {
+          case 'container': block = `b-${c.name}`; break;
+          case 'component': block = `c-${c.name}`; break;
+          case 'page': block = `p-${c.name}`; break;
+          default: block = `u-${c.name}`;
+        }
 
         if (typeof block !== 'string') return;
 
