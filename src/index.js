@@ -17,7 +17,7 @@ export default {
         if (typeof block !== 'string') return;
 
         const generator = bemCn(block);
-        this.b = (...args) => generator(...args);
+        this.bem = (...args) => generator(...args);
       },
     });
   },

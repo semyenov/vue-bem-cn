@@ -31,7 +31,7 @@ exports.default = {
         if (typeof block !== 'string') return;
 
         var generator = (0, _bemCnLite2.default)(block);
-        this.b = function () {
+        this.bem = function () {
           return generator.apply(undefined, arguments);
         };
       }
