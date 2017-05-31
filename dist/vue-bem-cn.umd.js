@@ -196,11 +196,12 @@ exports.default = {
 
     Vue.mixin({
       created: function created() {
-        var block = this.$options.block || this.$options.name.split(/(?=[A-Z])/);
+        var block = this.$options.block || this.$options.name;
 
         if (typeof block === 'string') {
           /* eslint no-nested-ternary: 0 */
-          var c = { type: block.pop().toLowerCase(), name: block.join('-').toLowerCase() };
+          var b = block.split(/(?=[A-Z])/);
+          var c = { type: b.pop().toLowerCase(), name: b.join('-').toLowerCase() };
           var name = c.type === 'container' ? 'b-' + c.name : c.type === 'component' ? 'c-' + c.name : c.type === 'page' ? 'p-' + c.name : 'u-' + c.name;
 
           if (typeof name === 'string') {
