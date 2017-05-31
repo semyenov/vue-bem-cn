@@ -196,7 +196,7 @@ exports.default = {
 
     Vue.mixin({
       created: function created() {
-        var nameArray = this.$options.block.split(/(?=[A-Z])/) || this.$options.name.split(/(?=[A-Z])/);
+        var nameArray = this.$options.name.split(/(?=[A-Z])/);
         var c = {
           type: nameArray.pop().toLowerCase(),
           name: nameArray.join('-').toLowerCase()
